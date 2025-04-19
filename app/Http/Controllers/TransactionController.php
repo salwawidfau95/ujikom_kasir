@@ -54,8 +54,16 @@ class TransactionController extends Controller
     {
         $user = Auth::user();
 
+
         $search = $request->input('search');
         $entries = $request->input('entries', 10); // default 10
+
+
+        // Ambil filter tanggal
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $date = $request->input('date');
+
 
         $transactions = Transaction::with(['user', 'member', 'detail.product'])
             ->when($search, function ($query, $search) {
@@ -73,10 +81,20 @@ class TransactionController extends Controller
                         });
                 });
             })
+            ->when($year, function ($query, $year) {
+                $query->whereYear('created_at', $year);
+            })
+            ->when($month, function ($query, $month) {
+                $query->whereMonth('created_at', $month);
+            })
+            ->when($date, function ($query, $date) {
+                $query->whereDate('created_at', $date);
+            })
             ->paginate($entries)
             ->appends($request->query());
 
-        return view('transactions.staff.index', compact('transactions', 'search', 'entries', 'user'));
+
+        return view('transactions.staff.index', compact('transactions', 'search', 'entries', 'user', 'year', 'month', 'date'));
     }
 
     /**

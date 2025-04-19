@@ -1,5 +1,6 @@
 @extends('layouts.sidebar')
 
+
 @section('content')
 <!-- Main Content -->
 <main class="flex-1 p-8 ml-4">
@@ -14,6 +15,7 @@
             <span class="text-gray-900 font-semibold">Purchase</span>
         </nav>
 
+
         <div class="relative">
             <button id="profileMenu" class="rounded-full bg-orange-300 p-2">
                 <i data-lucide="lightbulb" class="w-6 h-6 text-white"></i>
@@ -24,6 +26,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="bg-white p-8 shadow-md rounded-lg mt-6">
         <div class="flex justify-between items-center">
@@ -37,11 +40,18 @@
             </a>
         </div>
 
+
         <div class="flex flex-col md:flex-row justify-between items-center mt-6 mb-4 gap-4">
-            <a href="{{ route('transactions.export') }}"
+            @php
+                $exportUrl = route('transactions.export', request()->only(['year', 'month', 'date']));
+            @endphp
+
+
+            <a href="{{ $exportUrl }}"
                 class="inline-block bg-[#1A4D2E] hover:bg-green-700 text-white font-medium px-4 py-2 rounded-lg text-sm shadow transition">
                 Export Purchase (.xlsx)
             </a>
+
 
             <div class="flex items-center flex-wrap gap-3 text-sm">
                 <form method="GET" action="{{ route('transactions.index2') }}" class="flex items-center space-x-4">
@@ -53,12 +63,19 @@
                     </select>
                     <span class="text-sm">entry</span>
 
+
+                    {{-- Filter date --}}
+                    <input type="number" name="year" value="{{ request('year') }}" placeholder="Tahun" class="border rounded px-2 py-1 text-sm w-24" />
+                    <input type="number" name="month" value="{{ request('month') }}" placeholder="Bulan" class="border rounded px-2 py-1 text-sm w-20" />
+                    <input type="date" name="date" value="{{ request('date') }}" class="border rounded px-2 py-1 text-sm" />
+
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari..." class="border rounded px-2 py-1 text-sm" />
-                    
+                   
                     <button type="submit" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Search</button>
                 </form>
             </div>
         </div>
+
 
         <table class="w-full mt-6 border-collapse border border-gray-300">
             <thead>
@@ -100,6 +117,7 @@
                         </td>
                     </tr>
 
+
                     <!-- Modal -->
                     <div id="modal-{{ $transaction->id }}" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
                         <div class="bg-white w-full max-w-3xl rounded-2xl shadow-lg p-6 md:p-8 mx-4 md:mx-0 space-y-6">
@@ -113,6 +131,7 @@
                                 </button>
                             </div>
 
+
                             <!-- Modal Body -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
@@ -123,6 +142,7 @@
                                     <p><span class="font-medium">Bergabung Sejak:</span> {{ $transaction->member_id ? \Carbon\Carbon::parse($transaction->member->created_at)->format('Y-m-d') : '-' }}</p>
                                 </div>
                             </div>
+
 
                             <div>
                                 <p class="font-semibold mb-1">Produk:</p>
@@ -135,20 +155,26 @@
                                 </ul>
                             </div>
 
+
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <p><span class="font-medium">Total Harga:</span> Rp {{ number_format($transaction->total_price, 0, ',', '.') }}</p>
                                 <p><span class="font-medium">Total Bayar:</span> Rp {{ number_format($transaction->total_payment, 0, ',', '.') }}</p>
                                 <p><span class="font-medium">Kembalian:</span> Rp {{ number_format($transaction->change, 0, ',', '.') }}</p>
                             </div>
 
+
                             <p class="text-sm text-gray-500">Dibuat pada: {{ \Carbon\Carbon::parse($transaction->created_at)->format('Y-m-d H:i:s') }} oleh <strong>{{ $transaction->user->username ?? '-' }}</strong></p>
+
 
                             </div>
 
+
                             <!-- Modal Footer -->
+
 
                         </div>
                     </div>
+
 
                 @endforeach
             </tbody>
@@ -159,20 +185,25 @@
     </div>
 </main>
 
+
 <script>
     lucide.createIcons();
+
 
     function openModal(id) {
         document.getElementById(id).classList.remove('hidden');
     }
 
+
     function closeModal(id) {
         document.getElementById(id).classList.add('hidden');
     }
 
+
     document.getElementById('profileMenu').addEventListener('click', function () {
         document.getElementById('profileDropdown').classList.toggle('hidden');
     });
+
 
     document.getElementById('entries').addEventListener('change', function () {
         const entries = this.value;

@@ -75,7 +75,7 @@ class ProductController extends Controller
 
         $request->validate([
             'name' => 'sometimes|required|unique:products,name,' . $id,
-            'price' => 'sometimes|required|integer|min:0',
+            'price' => 'sometimes|required|integer|min:0|max:100000000',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 

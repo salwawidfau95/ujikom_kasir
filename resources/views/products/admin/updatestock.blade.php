@@ -5,7 +5,7 @@
     <!-- Breadcrumb -->
     <div class="flex justify-between items-center">
         <nav class="text-gray-500 text-sm flex items-center space-x-2">
-            <a href="" class="flex items-center space-x-1 hover:text-gray-700">
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-1 hover:text-gray-700">
                 <i data-lucide="home" class="w-4 h-4"></i>
                 <span>Home</span>
             </a>
@@ -47,7 +47,7 @@
                 <!-- Stock -->
                 <div>
                     <label for="stock" class="block text-sm font-semibold">Stock</label>
-                    <input type="number" id="stock" name="stock" 
+                    <input type="number" id="stock" name="stock" min="0" max="10000000" 
                         value="{{ old('stock', $product->stock) }}" 
                         class="mt-1 w-full border border-gray-300 px-3 py-2 rounded-md text-black cursor-not-allowed focus:ring-0 focus:border-gray-600" 
                         >

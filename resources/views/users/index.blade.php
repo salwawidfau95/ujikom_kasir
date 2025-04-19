@@ -8,7 +8,7 @@
         <div class="flex justify-between items-center">
             <!-- Breadcrumb -->
             <nav class="text-gray-500 text-sm flex items-center space-x-2">
-                <a href="" class="flex items-center space-x-1 hover:text-gray-700">
+                <a href="{{ route('dashboard') }}" class="flex items-center space-x-1 hover:text-gray-700">
                     <i data-lucide="home" class="w-4 h-4"></i>
                     <span>Home</span>
                 </a>
@@ -80,7 +80,7 @@
                                 <i data-lucide="edit"></i>
                             </a>
                             <!-- Delete Button -->
-                            <button onclick="confirmDelete({{ $user->id }})" class="text-red-500 hover:text-red-700">
+                            <button onclick="confirmDelete(event, {{ $user->id }}, '{{ $user->role }}')" class="text-red-500 hover:text-red-700">
                                 <i data-lucide="trash"></i>
                             </button>
                         </td>
@@ -115,22 +115,35 @@
             document.getElementById('profileDropdown').classList.toggle('hidden');
         });
 
-        // Confirm Deletion
-        function confirmDelete(userId) {
-            const deleteModal = document.getElementById('deleteModal');
-            const deleteForm = document.getElementById('deleteForm');
-
-            // Ubah sesuai dengan route DELETE kamu
-            deleteForm.action = "{{ route('users.destroy', $user->id) }}".replace(':id', userId);
-
-            deleteModal.classList.remove('hidden');
-            
+        // Handle delete check
+    function handleDelete(event, role) {
+        if (role === 'admin') {
+            alert("Cannot delete user admin.");
+            event.preventDefault();
+            return false;
         }
+        return true;
+    }
 
-        // Cancel Deletion
-        document.getElementById('cancelDelete').addEventListener('click', function () {
-            document.getElementById('deleteModal').classList.add('hidden');
-        });
+    // Confirm Deletion
+    function confirmDelete(event, userId, role) {
+        if (!handleDelete(event, role)) return;
+
+        const deleteModal = document.getElementById('deleteModal');
+        const deleteForm = document.getElementById('deleteForm');
+
+        // Set proper action URL
+        let actionUrl = "{{ route('users.destroy', ':id') }}";
+        deleteForm.action = actionUrl.replace(':id', userId);
+
+        deleteModal.classList.remove('hidden');
+    }
+
+    // Cancel Deletion
+    document.getElementById('cancelDelete').addEventListener('click', function () {
+        document.getElementById('deleteModal').classList.add('hidden');
+    });
+
     </script>
 
 @endsection

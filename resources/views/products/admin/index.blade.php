@@ -7,7 +7,7 @@
         <!-- Header -->
         <div class="flex justify-between items-center">
             <nav class="text-gray-500 text-sm flex items-center space-x-2">
-                <a href="" class="flex items-center space-x-1 hover:text-gray-700">
+                <a href="{{ route('dashboard') }}" class="flex items-center space-x-1 hover:text-gray-700">
                     <i data-lucide="home" class="w-4 h-4"></i>
                     <span>Home</span>
                 </a>
@@ -81,7 +81,7 @@
                             <a href="{{ route('products.up', $product->id) }}" class="text-blue-500 hover:text-blue-700">
                                 <i data-lucide="edit"></i>
                             </a>
-                            <button onclick="confirmDelete({{ $product->id }})" class="text-red-500 hover:text-red-700">
+                            <button onclick="confirmDelete({{ $product->id }})" class="text-red-500 hover:text-red-700" >
                                 <i data-lucide="trash"></i>
                             </button>
                             <a href="{{ route('products.up-stock', $product->id) }}" class="text-green-600 hover:text-green-800 font-semibold">

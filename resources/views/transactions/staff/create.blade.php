@@ -7,7 +7,7 @@
     <div class="flex justify-between items-center">
         <!-- Breadcrumb -->
         <nav class="text-gray-500 text-sm flex items-center space-x-2">
-            <a href="#" class="flex items-center space-x-1 hover:text-gray-700">
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-1 hover:text-gray-700">
                 <i data-lucide="home" class="w-4 h-4"></i>
                 <span>Dashboard</span>
             </a>

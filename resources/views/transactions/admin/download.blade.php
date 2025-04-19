@@ -43,12 +43,15 @@
         }
         .summary-table td {
             padding: 6px 12px;
-        }
-        .summary-table .label {
             text-align: right;
         }
-        .summary-table .value {
-            text-align: left;
+        .summary-table td.label{
+            text-align: right;
+        }
+        .summary-table td.value {
+            text-align: right;
+        }
+        .summary-table td.value {
             font-weight: bold;
         }
         .footer {
@@ -58,7 +61,8 @@
     </style>
 </head>
 <body>
-    <h3>{{ $store_name }}</h3>
+    <h3>{{ $store_name }} | Telp: 085881671655 | Alamat: JL Jalak Harupat No 33</h3>
+
     <p>Member Status: {{ $member_status }}</p>
     <p>Phone Number: {{ $no_phone }}</p>
     <p>Joined Since: {{ $joined_since }}</p>
@@ -69,8 +73,8 @@
             <tr>
                 <th>Product Name</th>
                 <th>Qty</th>
-                <th>Price</th>
-                <th>Subtotal</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Subtotal</th>
             </tr>
         </thead>
         <tbody>
@@ -78,8 +82,8 @@
             <tr>
                 <td>{{ $item->product->name }}</td>
                 <td>{{ $item->quantity }}</td>
-                <td>Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
-                <td>Rp. {{ number_format($item->quantity * $item->price, 0, ',', '.') }}</td>
+                <td class="text-right">Rp. {{ number_format($item->price, 0, ',', '.') }}</td>
+                <td class="text-right">Rp. {{ number_format($item->quantity * $item->price, 0, ',', '.') }}</td>
             </tr>
             @endforeach
         </tbody>

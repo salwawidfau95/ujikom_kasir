@@ -48,7 +48,7 @@
             text-align: right;
         }
         .summary-table .value {
-            text-align: left;
+            text-align: right;
             font-weight: bold;
         }
         .footer {
@@ -59,6 +59,10 @@
 </head>
 <body>
     <h3>{{ $store_name }}</h3>
+    <p>Si Tami Market</p>
+    <p>Telp: 085881671655</p>
+    <p>Alamat: JL Jalak Harupat No 33</p>
+
     <p>Member Status: {{ $member_status }}</p>
     <p>Phone Number: {{ $no_phone }}</p>
     <p>Joined Since: {{ $joined_since }}</p>
@@ -87,18 +91,18 @@
 
     <table class="summary-table">
         <tr>
-            <td class="label" colspan="3">Total Price</td>
-            <td class="value">Rp. {{ number_format($total_price, 0, ',', '.') }}</td>
+            <td class="label text-right" colspan="3">Total Price</td>
+            <td class="value text-right">Rp. {{ number_format($total_price, 0, ',', '.') }}</td>
         </tr>
         <tr>
-            <td class="label" colspan="3">Price After Points</td>
-            <td class="value">Rp. {{ number_format($price_after_point, 0, ',', '.') }}</td>
+            <td class="label text-right" colspan="3">Price After Points</td>
+            <td class="value text-right">Rp. {{ number_format($price_after_point, 0, ',', '.') }}</td>
         </tr>
         <tr>
-            <td class="label" colspan="3">Total Change</td>
-            <td class="value">Rp. {{ number_format($change, 0, ',', '.') }}</td>
+            <td class="label text-right" colspan="3">Total Change</td>
+            <td class="value text-right">Rp. {{ number_format($change, 0, ',', '.') }}</td>
         </tr>
-    </table>
+    </table>    
 
     <div class="footer">
         <p>{{ $created_at->format('Y-m-d\TH:i:s') }} | {{ $cashier }}</p>

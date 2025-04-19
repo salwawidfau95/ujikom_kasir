@@ -22,8 +22,20 @@ class TransactionsExport implements FromCollection, WithHeadings
         $query = Transaction::with(['detail.product', 'member'])
             ->orderBy('created_at', 'desc');
 
+        if ($this->request->year) {
+            $query->whereYear('created_at', $this->request->year);
+        }
+
+        if ($this->request->month) {
+            $query->whereMonth('created_at', $this->request->month);
+        }
+
+        if ($this->request->date) {
+            $query->whereDate('created_at', $this->request->date);
+        }
+
         $transactions = $query->get();
-        // $exportData = [];
+        $exportData = [];
 
         foreach ($transactions as $trx) {
             $customerName = $trx->member->name ?? 'Non Member';
@@ -71,4 +83,3 @@ class TransactionsExport implements FromCollection, WithHeadings
         ];
     }
 }
-

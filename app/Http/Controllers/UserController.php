@@ -101,7 +101,6 @@ class UserController extends Controller
             'password' => Hash::make($request->password), // Enkripsi password
             'email' => $request->email,
             'role' => $request->role,
-            // 'image' => $imagePath,
         ]);
 
 

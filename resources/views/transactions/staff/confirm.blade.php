@@ -6,7 +6,7 @@
 <main class="flex-1 p-8 ml-4">
     <div class="flex justify-between items-center">
         <nav class="text-gray-500 text-sm flex items-center space-x-2">
-            <a href="" class="flex items-center space-x-1 hover:text-gray-700">
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-1 hover:text-gray-700">
                 <i data-lucide="home" class="w-4 h-4"></i>
                 <span>Home</span>
             </a>
@@ -86,11 +86,8 @@
 
                     <div>
                         <label for="total_payment" class="block font-medium mb-1" >Total Payment</label>
-                        <input type="number" name="total_payment" class="w-full border border-gray-300 rounded-md p-2" placeholder="Masukkan jumlah pembayaran" required>
-
-                        @error('total_payment')
-                            <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
-                        @enderror
+                        <input type="number" name="total_payment" class="w-full border border-gray-300 rounded-md p-2" min="0"
+                        max="9999999999" placeholder="Masukkan jumlah pembayaran" required>
                     </div>
 
                     <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md">

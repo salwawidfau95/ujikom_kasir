@@ -6,14 +6,14 @@
     <!-- Breadcrumb -->
     <div class="flex justify-between items-center">
         <nav class="text-gray-500 text-sm flex items-center space-x-2">
-            <a href="" class="flex items-center space-x-1 hover:text-gray-700">
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-1 hover:text-gray-700">
                 <i data-lucide="home" class="w-4 h-4"></i>
                 <span>Home</span>
             </a>
             <span>/</span>
             <a href="{{ route('users.index') }}" class="hover:text-gray-700">User</a>
             <span>/</span>
-            <a href="{{ route('users.create') }}" class="hover:text-gray-700">Create User</a>
+            <a href="{{ route('users.create') }}" class="text-gray-900 font-semibold">Create User</a>
         </nav>
         <div class="relative">
                 <button id="profileMenu" class="rounded-full bg-orange-300 p-2">
